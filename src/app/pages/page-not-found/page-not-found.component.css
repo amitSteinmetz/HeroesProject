@@ -1,0 +1,17 @@
+.container {
+    height: calc(100vh - 6rem);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+h1 {
+    font-size: 5rem;
+}
+
+@media (max-width: 950px) {
+    h1 {
+        font-size: 3rem;
+        text-align: center;
+    }
+}

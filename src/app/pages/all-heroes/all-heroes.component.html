@@ -1,0 +1,19 @@
+<div class="page-container">
+    <h1 class="headline">{{currentLoggedUser}}, welcome to <span class="logo-text">HEROES</span> database</h1>
+    <h2 class="sub-headline">Here you can choose which heroes to train</h2>
+    <div class="heroes-container">
+        <div class="hero-card" *ngFor="let hero of allHeroes, let i = index">
+            <img class="hero-image" src="{{hero.image}}" alt="">
+            <div><strong>Name:</strong> {{hero.name}}</div>
+            <div><strong>Starting power:</strong> {{hero.startingPower}}</div>
+            <div class="more-details">
+                <strong>More details </strong> 
+                <i (click)="onClickMoreDetailsIcon(i)" class="fa-solid" [ngClass]="heroesIconClass[i]"></i>
+            </div>
+            <div class="more-details-info" *ngIf="showMoreDetails[i]"><strong>Ability:</strong> {{hero.ability}}</div>
+            <div class="more-details-info" *ngIf="showMoreDetails[i]"><strong>Suit colors:</strong> {{hero.suitColors}}</div>
+
+            <button (click)="onClickAddHeroButton(hero)">Add hero</button>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,49 @@
+button {
+    width: 45%
+}
+
+.buttons-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.hero-card .training-forbidden-modal-container {
+    position: absolute;
+    bottom: 1rem;
+    width: 100%;
+    height: 90%;
+    background-color: rgba(255, 255, 255, 0.7);
+    animation: pop 0.3s;
+}
+
+.hero-card .training-forbidden-modal {
+    position: absolute;
+    top: 30%;
+    left: 10%;
+    padding: 1rem 0.5rem;
+    border-radius: 5px;
+    text-align: center;
+    background-color: #1f345e;
+    color: white;
+}
+
+.hero-card .training-forbidden-modal i {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+}
+
+.not-allowed:hover {
+    cursor: not-allowed;
+    background-color: #e23636;
+}
+
+@keyframes pop {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}

@@ -1,0 +1,26 @@
+<div class="header-container">
+    <div (click)="onHamburgerButtonClicked()" class="hamburger-menu"
+        [ngClass]="{'hamburger-active' : hamburgerButtonWasClicked}">
+        <div class="hamburger-first-line"></div>
+        <div class="hamburger-second-line"></div>
+        <div class="hamburger-last-line"></div>
+    </div>
+
+    <div *ngIf="!isSmallScreen || hamburgerButtonWasClicked" class="header-links-container">
+        <a *ngIf="router.url === '/login' ||
+         router.url === '/signup'" routerLink="/home" class="header-link">Home</a>
+        <a *ngIf="!(router.url === '/my-heroes' || router.url === '/all-heroes' || router.url === '/login')"
+            routerLink="/login" class="header-link">Login</a>
+        <a *ngIf="!(router.url === '/my-heroes' || router.url === '/all-heroes' || router.url === '/signup')"
+            routerLink="/signup" class="header-link">Sign Up</a>
+        <a *ngIf="router.url === '/my-heroes'" routerLink="/all-heroes" class="header-link">All Heroes</a>
+        <a *ngIf="router.url === '/all-heroes'" routerLink="/my-heroes" class="header-link">My Heroes</a>
+        <a (click)="true" *ngIf="router.url === '/my-heroes' || router.url === '/all-heroes'" routerLink="/home"
+            class="header-link">Logout</a>
+    </div>
+
+    <div class="header-headline-container">
+        <h1 class="header-headline">Heroes</h1>
+        <h3 class="header-sub-headline">The perfect place to train your hero</h3>
+    </div>
+</div>

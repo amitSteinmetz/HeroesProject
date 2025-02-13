@@ -1,0 +1,33 @@
+<div class="login-page-container">
+    <div class="modal-container">
+        <h1 class="logo">Heroes</h1>
+        <h2 class="login-headline">Login</h2>
+
+        <form [formGroup]="loginForm" (ngSubmit)="handleSubmit()">
+            <div class="text-input-container">
+                <label for="username">Username: </label>
+                <input type="text" formControlName="username">
+                <div *ngIf="loginForm.get('username').invalid && loginForm.get('username').touched"
+                    class="error-message">You must enter username</div>
+            </div>
+
+            <div class="text-input-container">
+                <label for="password">Password: </label>
+                <input type="password" formControlName="password">
+                <div *ngIf="loginForm.get('password').invalid && loginForm.get('password').touched"
+                    class="error-message">{{invalidPasswordMessage()}}</div>
+            </div>
+
+            <button #loginButton type="submit" [disabled]="loginForm.invalid">login</button>
+        </form>
+
+        <div class="signup-text">New user? sign-up <a class="signup-text-link" routerLink="/signup">here</a></div>
+
+        <div *ngIf="detailsNotMatch && loginButtonWasClicked" class="no-match-modal-container">
+            <div class="no-match-modal">
+                Your username or password are incorrect, please try again.
+                <i (click)="closeNoMatchModal()" class="fa-solid fa-xmark"></i>
+            </div>
+        </div>
+    </div>
+</div>
