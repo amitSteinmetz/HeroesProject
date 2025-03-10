@@ -30,7 +30,7 @@ export class HeaderComponent implements OnInit {
   }
 
   logout() {
-    this.usersService.updateCurrentUser("");
+    this.usersService.logout();
   }
 
   onHamburgerButtonClicked() {

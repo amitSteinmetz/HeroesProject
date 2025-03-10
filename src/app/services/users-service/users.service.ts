@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Signup } from '../../models/signup.model';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, catchError, EMPTY, Observable, tap, throwError } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
+import { Login } from '../../models/login.model';
 
 @Injectable({
   providedIn: 'root'
@@ -15,10 +16,25 @@ export class UsersService {
   constructor(private http: HttpClient) { }
 
   signup(signupModel: Signup): Observable<string> {
-    return this.http.post<any>(environment.apiUrl + "UserAccount/signup", signupModel);
+    return this.http.post<string>(`${environment.apiUrl}UserAccount/signup`, signupModel).pipe(
+      catchError(error => {
+        return throwError(() => error);
+      })
+    );
   }
 
-  updateCurrentUser(userName: string) {
-    this.loggedUserSub.next(userName);
+  login(loginModel: Login): Observable<string> {
+    return this.http.post<string>(`${environment.apiUrl}UserAccount/login`, loginModel).pipe(
+      tap((username) => {
+        this.loggedUserSub.next(username);
+      }),
+      catchError(error => {
+        return throwError(() => error);
+      })
+    );
+  }
+
+  logout() {
+    this.loggedUserSub.next("");
   }
 }

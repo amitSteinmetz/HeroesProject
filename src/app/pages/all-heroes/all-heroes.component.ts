@@ -17,7 +17,7 @@ export class AllHeroesComponent implements OnInit {
   showMoreDetails: boolean[] = [];
   heroesIconClass = [];
   loggedUserSubscription: Subscription;
-  currentLoggedUser: string = "";
+  loggedUser: string = "";
 
   constructor(private heroesService: HeroesService, private usersService: UsersService) { }
 
@@ -35,7 +35,7 @@ export class AllHeroesComponent implements OnInit {
     }
 
     this.loggedUserSubscription = this.usersService.loggedUser.subscribe((loggedUser) => {
-      this.currentLoggedUser = loggedUser;
+      this.loggedUser = loggedUser;
     })
   }
 

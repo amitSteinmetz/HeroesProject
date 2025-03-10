@@ -46,5 +46,9 @@
         </form>
 
         <div class="login-text">Already have acount? login <a class="login-text-link" routerLink="/login">here</a></div>
+        <div class="user-taken-error-modal" *ngIf="showTakenUserErrorModal" (click)="closeTakenUserErrorModal()">
+            this email already exist in system.
+            <i class="fas fa-xmark"></i>
+        </div>
     </div>
 </div>

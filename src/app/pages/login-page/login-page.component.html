@@ -5,10 +5,10 @@
 
         <form [formGroup]="loginForm" (ngSubmit)="handleSubmit()">
             <div class="text-input-container">
-                <label for="username">Username: </label>
-                <input type="text" formControlName="username">
-                <div *ngIf="loginForm.get('username').invalid && loginForm.get('username').touched"
-                    class="error-message">You must enter username</div>
+                <label for="email">Email: </label>
+                <input type="text" formControlName="email">
+                <div *ngIf="loginForm.get('email').invalid && loginForm.get('email').touched"
+                    class="error-message">You must enter email</div>
             </div>
 
             <div class="text-input-container">
@@ -23,7 +23,7 @@
 
         <div class="signup-text">New user? sign-up <a class="signup-text-link" routerLink="/signup">here</a></div>
 
-        <div *ngIf="detailsNotMatch && loginButtonWasClicked" class="no-match-modal-container">
+        <div *ngIf="detailsNotMatch" class="no-match-modal-container">
             <div class="no-match-modal">
                 Your username or password are incorrect, please try again.
                 <i (click)="closeNoMatchModal()" class="fa-solid fa-xmark"></i>

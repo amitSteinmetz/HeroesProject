@@ -12,32 +12,20 @@ import { UsersService } from '../../services/users-service/users.service';
 })
 export class LoginPageComponent implements OnInit {
   loginForm: FormGroup;
-  detailsNotMatch: boolean = true;
+  detailsNotMatch: boolean = false;
   loginButtonWasClicked: boolean = false;
 
   constructor(private fb: FormBuilder, private router: Router, private usersService: UsersService) { }
 
   ngOnInit(): void {
     this.loginForm = this.fb.group({
-      username: [, Validators.required],
+      email: [, Validators.required],
       password: [, [Validators.required, this.customPasswordValidator]]
     })
   }
 
-  handleSubmit() {
-    // for (let i = 0; i < this.usersService.users.length; i++)
-    //   if (this.loginForm.get("username").value === this.usersService.users[i].username &&
-    //     this.loginForm.get("password").value === this.usersService.users[i].password) {
-    //     this.detailsNotMatch = false;
-    //     this.usersService.updateCurrentUser(this.loginForm.get("username").value as string);
-    //     this.router.navigate(["/all-heroes"]);
-    //   }
-
-    this.loginButtonWasClicked = true;
-  }
-
   closeNoMatchModal() {
-    this.loginButtonWasClicked = false;
+    this.detailsNotMatch = false;
   }
 
   customPasswordValidator(control: AbstractControl): ValidationErrors | null {
@@ -71,5 +59,19 @@ export class LoginPageComponent implements OnInit {
       return "Password must contain at least 1 special letter";
 
     return "";
+  }
+
+  handleSubmit() {
+    this.usersService.login({
+      email: this.loginForm.get("email").value as string,
+      password: this.loginForm.get("password").value as string
+    }).subscribe({
+      next: () => {
+        this.router.navigate(["/all-heroes"]);
+      },
+      error: () => {
+        this.detailsNotMatch = true;
+      }
+    })
   }
 }

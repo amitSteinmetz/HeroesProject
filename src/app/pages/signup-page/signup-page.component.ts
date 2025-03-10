@@ -12,6 +12,7 @@ import { UsersService } from '../../services/users-service/users.service';
 })
 export class SignupPageComponent implements OnInit {
   signupForm: FormGroup;
+  showTakenUserErrorModal: boolean = false;
 
   constructor(private fb: FormBuilder, private usersService: UsersService, private router: Router) { }
 
@@ -90,15 +91,24 @@ export class SignupPageComponent implements OnInit {
     return "";
   }
 
+  closeTakenUserErrorModal() {
+    this.showTakenUserErrorModal = false;
+  }
+
   handleSubmit() {
     this.usersService.signup({
       name: this.signupForm.get("name").value as string,
       email: this.signupForm.get("email").value as string,
       password: this.signupForm.get("password").value as string,
       confirmPassword: this.signupForm.get("confirmPassword").value as string,
-    }).subscribe();
-
-    this.router.navigate(["/login"]);
+    }).subscribe({
+      next: () => {
+        this.router.navigate(["/login"]);
+      },
+      error: () => {
+        this.showTakenUserErrorModal = true;
+      }
+    });
   }
 }
 
