@@ -11,7 +11,7 @@
                         <input type="text" formControlName="name"
                             [ngClass]="{ 'red-border' : signupForm.get('name').invalid && signupForm.get('name').touched}">
                         <div *ngIf="signupForm.get('name').invalid && signupForm.get('name').touched"
-                            class="error-message">error</div>
+                            class="error-message">You must enter username</div>
                     </div>
 
                     <div class="text-input-container">
@@ -19,7 +19,7 @@
                         <input type="email" formControlName="email"
                             [ngClass]="{ 'red-border' : signupForm.get('email').invalid && signupForm.get('email').touched}">
                         <div *ngIf="signupForm.get('email').invalid && signupForm.get('email').touched"
-                            class="error-message">error</div>
+                            class="error-message">{{invalidEmailMessage()}}</div>
                     </div>
                 </div>
 
@@ -29,7 +29,7 @@
                         <input type="password" formControlName="password"
                             [ngClass]="{ 'red-border' : signupForm.get('password').invalid && signupForm.get('password').touched}">
                         <div *ngIf="signupForm.get('password').invalid && signupForm.get('password').touched"
-                            class="error-message">error</div>
+                            class="error-message">{{invalidPasswordMessage()}}</div>
                     </div>
 
                     <div class="text-input-container">
@@ -37,7 +37,7 @@
                         <input type="password" formControlName="confirmPassword"
                             [ngClass]="{ 'red-border' : (signupForm.errors?.['notSamePasswords'] || signupForm.get('confirmPassword').invalid) && signupForm.get('confirmPassword').touched}">
                         <div *ngIf="signupForm.get('confirmPassword').touched && (signupForm.get('confirmPassword').invalid || signupForm.errors?.['notSamePasswords'])"
-                            class="error-message">error</div>
+                            class="error-message">{{invalidpasswordRepeatMessage()}}</div>
                     </div>
                 </div>
             </div>

@@ -65,7 +65,8 @@ form {
 }
 
 .text-input-container {
-    margin-bottom: 0.8rem;
+    position: relative;
+    margin-bottom: 2rem;
 }
 
 form label {
@@ -129,7 +130,9 @@ button:disabled {
 }
 
 .error-message {
-    margin-top: 3px;
+    position: absolute;
+    top: 52px;
+    line-height: 1;
     color: #5e0d0d;
     font-weight: 700;
 }

@@ -78,26 +78,11 @@ export class SignupPageComponent implements OnInit {
     return "";
   }
 
-  invalidUserNameMessage() {
-    const errors = this.signupForm.get("username").errors;
-
-    if (errors?.["required"])
-      return "You must enter username";
-
-    if (errors?.["taken"])
-      return "This username is already in use";
-
-    return "";
-  }
-
   invalidEmailMessage() {
     const errors = this.signupForm.get("email").errors;
 
     if (errors?.["required"])
       return "You must enter email";
-
-    if (errors?.["taken"])
-      return "This email is already in use";
 
     if (errors?.["email"])
       return "Invalid email format";

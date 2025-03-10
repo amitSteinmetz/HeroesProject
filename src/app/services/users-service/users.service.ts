@@ -15,7 +15,7 @@ export class UsersService {
   constructor(private http: HttpClient) { }
 
   signup(signupModel: Signup): Observable<string> {
-    return this.http.post<string>(environment.apiUrl + "UserAccount/signup", signupModel);
+    return this.http.post<any>(environment.apiUrl + "UserAccount/signup", signupModel);
   }
 
   updateCurrentUser(userName: string) {
