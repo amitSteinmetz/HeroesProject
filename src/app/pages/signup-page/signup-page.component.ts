@@ -17,11 +17,10 @@ export class SignupPageComponent implements OnInit {
 
   ngOnInit(): void {
     this.signupForm = this.fb.group({
-      username: [, [Validators.required, this.customUserNameValidator(this.usersService)]],
-      age: [, Validators.required],
-      email: [, [Validators.required, Validators.email, this.customEmailValidator(this.usersService)]],
+      name: [, Validators.required],
+      email: [, [Validators.required, Validators.email]],
       password: [, [Validators.required, this.customPasswordValidator]],
-      passwordRepeat: [, Validators.required]
+      confirmPassword: [, Validators.required]
     },
       { validators: this.customPasswordRepeatValidator })
   }
@@ -40,9 +39,9 @@ export class SignupPageComponent implements OnInit {
 
   customPasswordRepeatValidator(control: FormGroup): ValidationErrors | null {
     const password = control.get("password")?.value as string;
-    const passwordRepeat = control.get("passwordRepeat")?.value as string;
+    const confirmPassword = control.get("confirmPassword")?.value as string;
 
-    return (password !== passwordRepeat) ? { "notSamePasswords": true } : null;
+    return (password !== confirmPassword) ? { "notSamePasswords": true } : null;
   }
 
   invalidPasswordMessage() {
@@ -67,7 +66,7 @@ export class SignupPageComponent implements OnInit {
   }
 
   invalidpasswordRepeatMessage() {
-    const errors = this.signupForm.get("passwordRepeat").errors;
+    const errors = this.signupForm.get("confirmPassword").errors;
     const formErrors = this.signupForm.errors;
 
     if (errors?.["required"])
@@ -106,38 +105,27 @@ export class SignupPageComponent implements OnInit {
     return "";
   }
 
-  customUserNameValidator(usersService: UsersService) {
-    return (control: AbstractControl): ValidationErrors | null => {
-      const userName: string = control.value as string;
-
-      for (let i = 0; i < usersService.users.length; i++)
-        if (userName === usersService.users[i].username)
-          return { "taken": control.value }
-
-      return null;
-    }
-  }
-
-  customEmailValidator(usersService: UsersService) {
-    return (control: AbstractControl): ValidationErrors | null => {
-      const email: string = control.value as string;
-
-      for (let i = 0; i < usersService.users.length; i++)
-        if (email === usersService.users[i].email)
-          return { "taken": control.value }
-
-      return null;
-    }
-  }
-
   handleSubmit() {
-    this.usersService.addUser({
-      username: this.signupForm.get("username").value as string,
-      age: this.signupForm.get("age").value as number,
+    this.usersService.signup({
+      name: this.signupForm.get("name").value as string,
       email: this.signupForm.get("email").value as string,
-      password: this.signupForm.get("password").value as string
-    })
+      password: this.signupForm.get("password").value as string,
+      confirmPassword: this.signupForm.get("confirmPassword").value as string,
+    }).subscribe();
 
     this.router.navigate(["/login"]);
   }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+

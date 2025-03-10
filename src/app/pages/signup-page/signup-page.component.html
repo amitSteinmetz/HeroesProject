@@ -7,19 +7,11 @@
             <div class="form-text-inputs">
                 <div class="text-inputs-column">
                     <div class="text-input-container">
-                        <label for="username">Username: </label>
-                        <input type="text" formControlName="username"
-                            [ngClass]="{ 'red-border' : signupForm.get('username').invalid && signupForm.get('username').touched}">
-                        <div *ngIf="signupForm.get('username').invalid && signupForm.get('username').touched"
-                            class="error-message">{{invalidUserNameMessage()}}</div>
-                    </div>
-
-                    <div class="text-input-container">
-                        <label for="age">Age: </label>
-                        <input type="number" formControlName="age"
-                            [ngClass]="{ 'red-border' : signupForm.get('age').invalid && signupForm.get('age').touched}">
-                        <div *ngIf="signupForm.get('age').invalid && signupForm.get('age').touched"
-                            class="error-message">You must enter age</div>
+                        <label for="name">Username: </label>
+                        <input type="text" formControlName="name"
+                            [ngClass]="{ 'red-border' : signupForm.get('name').invalid && signupForm.get('name').touched}">
+                        <div *ngIf="signupForm.get('name').invalid && signupForm.get('name').touched"
+                            class="error-message">error</div>
                     </div>
 
                     <div class="text-input-container">
@@ -27,7 +19,7 @@
                         <input type="email" formControlName="email"
                             [ngClass]="{ 'red-border' : signupForm.get('email').invalid && signupForm.get('email').touched}">
                         <div *ngIf="signupForm.get('email').invalid && signupForm.get('email').touched"
-                            class="error-message">{{invalidEmailMessage()}}</div>
+                            class="error-message">error</div>
                     </div>
                 </div>
 
@@ -37,15 +29,15 @@
                         <input type="password" formControlName="password"
                             [ngClass]="{ 'red-border' : signupForm.get('password').invalid && signupForm.get('password').touched}">
                         <div *ngIf="signupForm.get('password').invalid && signupForm.get('password').touched"
-                            class="error-message">{{invalidPasswordMessage()}}</div>
+                            class="error-message">error</div>
                     </div>
 
                     <div class="text-input-container">
-                        <label for="passwordRepeat">Repeat Password: </label>
-                        <input type="password" formControlName="passwordRepeat"
-                            [ngClass]="{ 'red-border' : (signupForm.errors?.['notSamePasswords'] || signupForm.get('passwordRepeat').invalid) && signupForm.get('passwordRepeat').touched}">
-                        <div *ngIf="signupForm.get('passwordRepeat').touched && (signupForm.get('passwordRepeat').invalid || signupForm.errors?.['notSamePasswords'])"
-                            class="error-message">{{invalidpasswordRepeatMessage()}}</div>
+                        <label for="confirmPassword">Repeat Password: </label>
+                        <input type="password" formControlName="confirmPassword"
+                            [ngClass]="{ 'red-border' : (signupForm.errors?.['notSamePasswords'] || signupForm.get('confirmPassword').invalid) && signupForm.get('confirmPassword').touched}">
+                        <div *ngIf="signupForm.get('confirmPassword').touched && (signupForm.get('confirmPassword').invalid || signupForm.errors?.['notSamePasswords'])"
+                            class="error-message">error</div>
                     </div>
                 </div>
             </div>

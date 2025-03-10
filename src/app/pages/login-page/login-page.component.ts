@@ -25,13 +25,13 @@ export class LoginPageComponent implements OnInit {
   }
 
   handleSubmit() {
-    for (let i = 0; i < this.usersService.users.length; i++)
-      if (this.loginForm.get("username").value === this.usersService.users[i].username &&
-        this.loginForm.get("password").value === this.usersService.users[i].password) {
-        this.detailsNotMatch = false;
-        this.usersService.updateCurrentUser(this.loginForm.get("username").value as string);
-        this.router.navigate(["/all-heroes"]);
-      }
+    // for (let i = 0; i < this.usersService.users.length; i++)
+    //   if (this.loginForm.get("username").value === this.usersService.users[i].username &&
+    //     this.loginForm.get("password").value === this.usersService.users[i].password) {
+    //     this.detailsNotMatch = false;
+    //     this.usersService.updateCurrentUser(this.loginForm.get("username").value as string);
+    //     this.router.navigate(["/all-heroes"]);
+    //   }
 
     this.loginButtonWasClicked = true;
   }
