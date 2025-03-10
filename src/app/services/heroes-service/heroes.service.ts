@@ -66,7 +66,6 @@ export class HeroesService {
       suitColors: ["black", " red", " gray"], startingPower: 19, currentPower: 19, image: "../../../assets/heroes-database-images/ant-man.png"
     }
   ];
-  
   allUsersChosenHeroes: Map<string, Hero[]> = new Map<string, Hero[]>;
 
   allHeroesSubject: BehaviorSubject<Hero[]> = new BehaviorSubject(this.allHeroes);
@@ -80,6 +79,7 @@ export class HeroesService {
   currentAmountOfTrainingToday: number[] = [];
   notAllowedModalClass = [];
   notAllowedSignClass = [];
+
   loggedUserSubscription: Subscription;
   currentLoggedUser: string = "";
 
@@ -150,6 +150,3 @@ export class HeroesService {
     this.notAllowedModalClass[index] = false;
   }
 }
-
-/*
-*/
