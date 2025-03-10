@@ -4,6 +4,7 @@ import { HeroesService } from '../../services/heroes-service/heroes.service';
 import { Subscription } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { UsersService } from '../../services/users-service/users.service';
+import { LoggedUser } from '../../models/loggedUser.model';
 
 @Component({
   selector: 'app-all-heroes',
@@ -17,7 +18,7 @@ export class AllHeroesComponent implements OnInit {
   showMoreDetails: boolean[] = [];
   heroesIconClass = [];
   loggedUserSubscription: Subscription;
-  loggedUser: string = "";
+  loggedUser: LoggedUser;
 
   constructor(private heroesService: HeroesService, private usersService: UsersService) { }
 

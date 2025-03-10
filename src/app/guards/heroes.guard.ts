@@ -8,13 +8,15 @@ export const heroesGuard: CanActivateFn = (route, state) => {
   const usersService = inject(UsersService);
   const router = inject(Router);
 
-  return usersService.loggedUser.pipe(
+  return usersService.loggedUserObs.pipe(
     take(1),
     map((loggedUser) => {
-      if (loggedUser === "")
+      if (usersService.isValidLoggedIn(loggedUser))
         router.navigate(['/home']);
 
       return true;
     })
   );
 };
+
+

@@ -3,6 +3,7 @@ import { Hero } from '../../models/hero.model';
 import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { UsersService } from '../users-service/users.service';
+import { LoggedUser } from '../../models/loggedUser.model';
 
 @Injectable({
   providedIn: 'root'
@@ -81,69 +82,69 @@ export class HeroesService {
   notAllowedSignClass = [];
 
   loggedUserSubscription: Subscription;
-  currentLoggedUser: string = "";
+  loggedUser: LoggedUser;
 
   constructor(private usersService: UsersService) {
     this.loggedUserSubscription = this.usersService.loggedUser.subscribe((loggedUser) => {
-      this.currentLoggedUser = loggedUser;
+      this.loggedUser = loggedUser;
     })
   }
 
   addHeroToMyHeroes(hero: Hero) {
-    hero.startTrainingDate = new Date().toLocaleDateString("en-GB");
+    // hero.startTrainingDate = new Date().toLocaleDateString("en-GB");
 
-    if (!this.allUsersChosenHeroes.has(this.currentLoggedUser))
-      this.allUsersChosenHeroes.set(this.currentLoggedUser, []); // Initialize an empty array if the key doesn't exist
+    // if (!this.allUsersChosenHeroes.has(this.currentLoggedUser))
+    //   this.allUsersChosenHeroes.set(this.currentLoggedUser, []); // Initialize an empty array if the key doesn't exist
 
-    this.allUsersChosenHeroes.get(this.currentLoggedUser).push(hero);
-    this.allUsersChosenHeroesSubject.next(this.allUsersChosenHeroes);
+    // this.allUsersChosenHeroes.get(this.currentLoggedUser).push(hero);
+    // this.allUsersChosenHeroesSubject.next(this.allUsersChosenHeroes);
 
-    this.allHeroes.splice(this.allHeroes.indexOf(hero), 1);
-    this.allHeroesSubject.next([...this.allHeroes]);
+    // this.allHeroes.splice(this.allHeroes.indexOf(hero), 1);
+    // this.allHeroesSubject.next([...this.allHeroes]);
 
-    this.lastTrainingDate.push(environment.todayDate);
-    this.currentAmountOfTrainingToday.push(0);
+    // this.lastTrainingDate.push(environment.todayDate);
+    // this.currentAmountOfTrainingToday.push(0);
 
-    this.notAllowedModalClass.push(false);
-    this.notAllowedSignClass.push({
-      "not-allowed": false
-    });
+    // this.notAllowedModalClass.push(false);
+    // this.notAllowedSignClass.push({
+    //   "not-allowed": false
+    // });
   }
 
   retrieveHeroToAllHeroes(hero: Hero, index: number) {
-    hero.currentPower = hero.startingPower;
+    // hero.currentPower = hero.startingPower;
 
-    this.allHeroes.push(hero);
-    this.allHeroesSubject.next([...this.allHeroes]);
+    // this.allHeroes.push(hero);
+    // this.allHeroesSubject.next([...this.allHeroes]);
 
-    this.allUsersChosenHeroes.get(this.currentLoggedUser).splice(this.allUsersChosenHeroes.get(this.currentLoggedUser).indexOf(hero), 1);
-    this.allUsersChosenHeroesSubject.next(this.allUsersChosenHeroes);
+    // this.allUsersChosenHeroes.get(this.currentLoggedUser).splice(this.allUsersChosenHeroes.get(this.currentLoggedUser).indexOf(hero), 1);
+    // this.allUsersChosenHeroesSubject.next(this.allUsersChosenHeroes);
 
-    this.notAllowedModalClass.splice(this.notAllowedModalClass.indexOf(hero), 1);
-    this.notAllowedSignClass.splice(this.notAllowedSignClass.indexOf(hero), 1);
+    // this.notAllowedModalClass.splice(this.notAllowedModalClass.indexOf(hero), 1);
+    // this.notAllowedSignClass.splice(this.notAllowedSignClass.indexOf(hero), 1);
 
-    this.currentAmountOfTrainingToday[index] = 0;
+    // this.currentAmountOfTrainingToday[index] = 0;
   }
 
   trainHero(index: number) {
-    if (this.lastTrainingDate[index] !== environment.todayDate)
-      this.currentAmountOfTrainingToday[index] = 0;
+    // if (this.lastTrainingDate[index] !== environment.todayDate)
+    //   this.currentAmountOfTrainingToday[index] = 0;
 
-    this.currentAmountOfTrainingToday[index]++;
+    // this.currentAmountOfTrainingToday[index]++;
 
-    if (this.currentAmountOfTrainingToday[index] >= this.maxAmountOfTrainingsPerDay) {
-      if (!this.notAllowedSignClass[index]["not-allowed"])
-        this.notAllowedSignClass[index]["not-allowed"] = true;
-      else
-        this.notAllowedModalClass[index] = true;
+    // if (this.currentAmountOfTrainingToday[index] >= this.maxAmountOfTrainingsPerDay) {
+    //   if (!this.notAllowedSignClass[index]["not-allowed"])
+    //     this.notAllowedSignClass[index]["not-allowed"] = true;
+    //   else
+    //     this.notAllowedModalClass[index] = true;
 
-      return;
-    }
+    //   return;
+    // }
 
-    this.lastTrainingDate[index] = environment.todayDate;
-    const hero: Hero = this.allUsersChosenHeroes.get(this.currentLoggedUser).at(index);
-    hero.currentPower += (Math.random() * (0.1 * hero.currentPower));
-    hero.currentPower = Math.round(hero.currentPower * 1000) / 1000; // Show only 3 digits after the dot
+    // this.lastTrainingDate[index] = environment.todayDate;
+    // const hero: Hero = this.allUsersChosenHeroes.get(this.currentLoggedUser).at(index);
+    // hero.currentPower += (Math.random() * (0.1 * hero.currentPower));
+    // hero.currentPower = Math.round(hero.currentPower * 1000) / 1000; // Show only 3 digits after the dot
   }
 
   removeNotAllowedModal(index: number) {

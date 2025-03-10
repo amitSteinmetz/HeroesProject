@@ -1,5 +1,5 @@
 <div class="page-container">
-    <h1 class="headline">{{currentLoggedUser}}, Your <span class="logo-text">HEROES</span></h1>
+    <h1 class="headline">{{loggedUser.name}}, Your <span class="logo-text">HEROES</span></h1>
     <h2 class="sub-headline">Here you can see your heroes and train them</h2>
     <div class="heroes-container">
         <div class="hero-card" *ngFor="let hero of myHeroes, let i = index">
@@ -7,16 +7,17 @@
             <div><strong>Name:</strong> {{hero.name}}</div>
             <div><strong>Current power:</strong> {{hero.currentPower}}</div>
             <div class="more-details">
-                <strong>More details </strong> 
-                <i (click)="onClickMoreDetailsIcon(i)" 
-                class="fa-solid" [ngClass]="heroesIconClass[i]"></i>
+                <strong>More details </strong>
+                <i (click)="onClickMoreDetailsIcon(i)" class="fa-solid" [ngClass]="heroesIconClass[i]"></i>
             </div>
             <div class="more-details-info" *ngIf="showMoreDetails[i]">
                 <strong>Ability:</strong>
-                 {{hero.ability}}
-                </div>
-            <div class="more-details-info" *ngIf="showMoreDetails[i]"><strong>Suit colors:</strong> {{hero.suitColors}}</div>
-            <div class="more-details-info" *ngIf="showMoreDetails[i]"><strong>First training day:</strong> {{hero.startTrainingDate}}</div>
+                {{hero.ability}}
+            </div>
+            <div class="more-details-info" *ngIf="showMoreDetails[i]"><strong>Suit colors:</strong> {{hero.suitColors}}
+            </div>
+            <div class="more-details-info" *ngIf="showMoreDetails[i]"><strong>First training day:</strong>
+                {{hero.startTrainingDate}}</div>
 
             <div class="buttons-container">
                 <button (click)="onClickTrainButton(i)" [ngClass]="service.notAllowedSignClass[i]">Train</button>
@@ -32,4 +33,3 @@
         </div>
     </div>
 </div>
-

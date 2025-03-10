@@ -4,6 +4,7 @@ import { Subscription } from 'rxjs';
 import { HeroesService } from '../../services/heroes-service/heroes.service';
 import { CommonModule } from '@angular/common';
 import { UsersService } from '../../services/users-service/users.service';
+import { LoggedUser } from '../../models/loggedUser.model';
 
 @Component({
   selector: 'app-my-heroes',
@@ -17,17 +18,17 @@ export class MyHeroesComponent implements OnInit {
   showMoreDetails: boolean[] = [];
   heroesIconClass = [];
   loggedUserSubscription: Subscription;
-  currentLoggedUser: string = "";
+  loggedUser: LoggedUser;
 
   constructor(private heroesService: HeroesService, private usersService: UsersService) { }
 
   ngOnInit(): void {
     this.loggedUserSubscription = this.usersService.loggedUser.subscribe((loggedUser) => {
-      this.currentLoggedUser = loggedUser;
+      this.loggedUser = loggedUser;
     })
 
     this.myHeroesSub = this.heroesService.allUsersChosenHeroesAsObservable.subscribe((allUsersChosenHeroes) => {
-      this.myHeroes = allUsersChosenHeroes.get(this.currentLoggedUser);
+      // this.myHeroes = allUsersChosenHeroes.get(this.currentLoggedUser);
     })
 
     for (let i = 0; i < this.myHeroes?.length; i++) {
