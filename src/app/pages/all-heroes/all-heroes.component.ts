@@ -35,7 +35,7 @@ export class AllHeroesComponent implements OnInit {
       })
     }
 
-    this.loggedUserSubscription = this.usersService.loggedUser.subscribe((loggedUser) => {
+    this.loggedUserSubscription = this.usersService.loggedUserObs.subscribe((loggedUser) => {
       this.loggedUser = loggedUser;
     })
   }

@@ -85,7 +85,7 @@ export class HeroesService {
   loggedUser: LoggedUser;
 
   constructor(private usersService: UsersService) {
-    this.loggedUserSubscription = this.usersService.loggedUser.subscribe((loggedUser) => {
+    this.loggedUserSubscription = this.usersService.loggedUserObs.subscribe((loggedUser) => {
       this.loggedUser = loggedUser;
     })
   }

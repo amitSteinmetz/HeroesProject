@@ -30,6 +30,7 @@ export class UsersService {
     return this.http.post<LoggedUser>(`${environment.apiUrl}UserAccount/login`, loginModel).pipe(
       tap((loggedUser) => {
         localStorage.setItem('loggedUser', JSON.stringify(loggedUser));
+        console.log(loggedUser);
         this.loggedUserSub.next(loggedUser);
       }),
       catchError(error => {
@@ -44,7 +45,7 @@ export class UsersService {
   }
 
   isValidLoggedIn(loggedUser: LoggedUser) {
-    return !!loggedUser && this.isTokenExpired(loggedUser.tokenExpireTime);
+    return !!loggedUser && !this.isTokenExpired(loggedUser.tokenExpireTime);
   }
 
   isTokenExpired(tokenExpireTime: string) : boolean {

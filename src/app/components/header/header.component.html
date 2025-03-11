@@ -15,7 +15,7 @@
             routerLink="/signup" class="header-link">Sign Up</a>
         <a *ngIf="router.url === '/my-heroes'" routerLink="/all-heroes" class="header-link">All Heroes</a>
         <a *ngIf="router.url === '/all-heroes'" routerLink="/my-heroes" class="header-link">My Heroes</a>
-        <a (click)="true" *ngIf="router.url === '/my-heroes' || router.url === '/all-heroes'" routerLink="/home"
+        <a (click)="logout()" *ngIf="router.url === '/my-heroes' || router.url === '/all-heroes'" routerLink="/home"
             class="header-link">Logout</a>
     </div>
 

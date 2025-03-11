@@ -23,7 +23,7 @@ export class MyHeroesComponent implements OnInit {
   constructor(private heroesService: HeroesService, private usersService: UsersService) { }
 
   ngOnInit(): void {
-    this.loggedUserSubscription = this.usersService.loggedUser.subscribe((loggedUser) => {
+    this.loggedUserSubscription = this.usersService.loggedUserObs.subscribe((loggedUser) => {
       this.loggedUser = loggedUser;
     })
 
