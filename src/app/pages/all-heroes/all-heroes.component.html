@@ -2,8 +2,8 @@
     <h1 class="headline">{{loggedUser.name}}, welcome to <span class="logo-text">HEROES</span> database</h1>
     <h2 class="sub-headline">Here you can choose which heroes to train</h2>
     <div class="heroes-container">
-        <div class="hero-card" *ngFor="let hero of allHeroes, let i = index">
-            <img class="hero-image" src="{{hero.image}}" alt="">
+        <div class="hero-card" *ngFor="let hero of availableHeroes, let i = index">
+            <img class="hero-image" src="{{hero.imgPath}}" alt="{{hero.imgPath}}">
             <div><strong>Name:</strong> {{hero.name}}</div>
             <div><strong>Starting power:</strong> {{hero.startingPower}}</div>
             <div class="more-details">

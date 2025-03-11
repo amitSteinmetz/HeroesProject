@@ -3,7 +3,7 @@
     <h2 class="sub-headline">Here you can see your heroes and train them</h2>
     <div class="heroes-container">
         <div class="hero-card" *ngFor="let hero of myHeroes, let i = index">
-            <img class="hero-image" src="{{hero.image}}" alt="">
+            <img class="hero-image" src="{{hero.imgPath}}" alt="">
             <div><strong>Name:</strong> {{hero.name}}</div>
             <div><strong>Current power:</strong> {{hero.currentPower}}</div>
             <div class="more-details">
@@ -16,9 +16,7 @@
             </div>
             <div class="more-details-info" *ngIf="showMoreDetails[i]"><strong>Suit colors:</strong> {{hero.suitColors}}
             </div>
-            <div class="more-details-info" *ngIf="showMoreDetails[i]"><strong>First training day:</strong>
-                {{hero.startTrainingDate}}</div>
-
+       
             <div class="buttons-container">
                 <button (click)="onClickTrainButton(i)" [ngClass]="service.notAllowedSignClass[i]">Train</button>
                 <button (click)="onClickDiscardButton(hero, i)">Discard</button>

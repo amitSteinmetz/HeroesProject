@@ -13,8 +13,7 @@ import { LoggedUser } from '../../models/loggedUser.model';
   styleUrls: ['../../../styles/heroes.css']
 })
 export class AllHeroesComponent implements OnInit {
-  allHeroes: Hero[];
-  allHeroesSub: Subscription;
+  availableHeroes: Hero[];
   showMoreDetails: boolean[] = [];
   heroesIconClass = [];
   loggedUserSubscription: Subscription;
@@ -23,20 +22,23 @@ export class AllHeroesComponent implements OnInit {
   constructor(private heroesService: HeroesService, private usersService: UsersService) { }
 
   ngOnInit(): void {
-    this.allHeroesSub = this.heroesService.allHeroesAsObservable.subscribe((allHeroes) => {
-      this.allHeroes = allHeroes;
-    })
-
-    for (let i = 0; i < this.allHeroes.length; i++) {
-      this.showMoreDetails.push(false);
-      this.heroesIconClass.push({
-        "fa-caret-down": true,
-        "fa-caret-up": false
-      })
-    }
-
     this.loggedUserSubscription = this.usersService.loggedUserObs.subscribe((loggedUser) => {
       this.loggedUser = loggedUser;
+    })
+
+    this.heroesService.getAllAvailableHeroes().subscribe({
+      next: (heroes) => {
+        this.availableHeroes = heroes;
+
+        for (let i = 0; i < this.availableHeroes.length; i++) {
+          this.showMoreDetails.push(false);
+          this.heroesIconClass.push({
+            "fa-caret-down": true,
+            "fa-caret-up": false
+          })
+        }
+      },
+      error: () => { }
     })
   }
 
@@ -50,6 +52,12 @@ export class AllHeroesComponent implements OnInit {
   }
 
   onClickAddHeroButton(hero: Hero) {
-    this.heroesService.addHeroToMyHeroes(hero);
+    this.heroesService.addHeroToLoggedUser(hero).subscribe({
+      next: () => {
+        this.availableHeroes = this.availableHeroes.filter(h => h.id !== hero.id);
+      },
+      error: () => { }
+    });
   }
 }
+

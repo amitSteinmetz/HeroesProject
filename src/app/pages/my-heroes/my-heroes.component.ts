@@ -14,7 +14,6 @@ import { LoggedUser } from '../../models/loggedUser.model';
 })
 export class MyHeroesComponent implements OnInit {
   myHeroes: Hero[] = [];
-  myHeroesSub: Subscription;
   showMoreDetails: boolean[] = [];
   heroesIconClass = [];
   loggedUserSubscription: Subscription;
@@ -27,17 +26,20 @@ export class MyHeroesComponent implements OnInit {
       this.loggedUser = loggedUser;
     })
 
-    this.myHeroesSub = this.heroesService.allUsersChosenHeroesAsObservable.subscribe((allUsersChosenHeroes) => {
-      // this.myHeroes = allUsersChosenHeroes.get(this.currentLoggedUser);
-    })
+    this.heroesService.getLoggedUserHeroes().subscribe({
+      next: (heroes) => {
+        this.myHeroes = heroes;
 
-    for (let i = 0; i < this.myHeroes?.length; i++) {
-      this.showMoreDetails.push(false);
-      this.heroesIconClass.push({
-        "fa-caret-down": true,
-        "fa-caret-up": false
-      });
-    }
+        for (let i = 0; i < this.myHeroes?.length; i++) {
+          this.showMoreDetails.push(false);
+          this.heroesIconClass.push({
+            "fa-caret-down": true,
+            "fa-caret-up": false
+          });
+        }
+      },
+      error: () => {}
+    })
   }
 
   onClickMoreDetailsIcon(index) {
@@ -51,10 +53,12 @@ export class MyHeroesComponent implements OnInit {
 
   onClickTrainButton(index: number) {
     this.heroesService.trainHero(index);
+    // call asp.net request trainHero
   }
 
   onClickDiscardButton(hero: Hero, index: number) {
     this.heroesService.retrieveHeroToAllHeroes(hero, index);
+    // call asp.net request deleteHeroFromTrainer
   }
 
   get service() {
