@@ -30,7 +30,6 @@ export class UsersService {
     return this.http.post<LoggedUser>(`${environment.apiUrl}UserAccount/login`, loginModel).pipe(
       tap((loggedUser) => {
         localStorage.setItem('loggedUser', JSON.stringify(loggedUser));
-        console.log(loggedUser);
         this.loggedUserSub.next(loggedUser);
       }),
       catchError(error => {
