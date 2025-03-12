@@ -80,13 +80,17 @@ button:hover {
     color: #1f345e;
 }
 
-.fa-caret-up {
+.fa-caret-up,
+.fa-caret-down {
     position: relative;
+    cursor: pointer;
+}
+
+.fa-caret-up {
     top: 3px;
 }
 
 .fa-caret-down {
-    position: relative;
     top: 1px;
 }
 

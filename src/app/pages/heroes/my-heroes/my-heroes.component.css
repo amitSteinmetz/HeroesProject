@@ -35,6 +35,7 @@ button {
 
 .hero-card .training-forbidden-modal i {
     position: absolute;
+    cursor: pointer;
     top: 0.5rem;
     right: 0.5rem;
 }

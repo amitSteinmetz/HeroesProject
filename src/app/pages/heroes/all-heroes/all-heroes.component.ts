@@ -51,12 +51,20 @@ export class AllHeroesComponent implements OnInit {
     }
   }
 
-  onClickAddHeroButton(hero: Hero) {
+  onClickAddHeroButton(hero: Hero, index: number) {
     this.heroesService.addHeroToLoggedUser(hero).subscribe({
       next: () => {
-        this.availableHeroes = this.availableHeroes.filter(h => h.id !== hero.id);
+        // this.availableHeroes = this.availableHeroes.filter(h => h.id !== hero.id); // without using http request
+        this.heroesService.getAllAvailableHeroes().subscribe({
+          next: (heroes) => {
+            this.availableHeroes = heroes;
+            this.showMoreDetails.splice(index, 1);
+            this.heroesIconClass.splice(index, 1);
+          },
+          error: () => {}
+        })
       },
-      error: () => { }
+      error: () => {}
     });
   }
 }

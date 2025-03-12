@@ -8,7 +8,7 @@
             <div><strong>Current power:</strong> {{hero.currentPower}}</div>
             <div class="more-details">
                 <strong>More details </strong>
-                <i (click)="onClickMoreDetailsIcon(i)" class="fa-solid" [ngClass]="heroesIconClass[i]"></i>
+                <i (click)="onClickMoreDetailsIcon(i)" class="fa-solid"[ngClass]="heroesIconClass[i] "></i>
             </div>
             <div class="more-details-info" *ngIf="showMoreDetails[i]">
                 <strong>Ability:</strong>

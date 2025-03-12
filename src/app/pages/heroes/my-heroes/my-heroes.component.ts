@@ -73,9 +73,16 @@ export class MyHeroesComponent implements OnInit {
   onClickDiscardButton(hero: Hero, index: number) {
     this.heroesService.deleteHeroFromTrainer(hero).subscribe({
       next: () => {
-        this.myHeroes = this.myHeroes.filter(h => h.id !== hero.id);
+        // this.myHeroes = this.myHeroes.filter(h => h.id !== hero.id); // using http request 
         this.hitTrainnigLimitModalClass.splice(index, 1);
         this.hitTrainnigLimitSignClass.splice(index, 1);
+
+        this.heroesService.getLoggedUserHeroes().subscribe({
+          next: (heroes) => {
+            this.myHeroes = heroes;
+          },
+          error: () => { }
+        })
       },
       error: () => { }
     });

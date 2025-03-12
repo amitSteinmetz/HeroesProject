@@ -18,47 +18,27 @@ export class HeroesService {
   constructor(private usersService: UsersService, private http: HttpClient) {
     this.loggedUserSubscription = this.usersService.loggedUserObs.subscribe((loggedUser) => {
       this.loggedUser = loggedUser;
-      this.headers.Authorization = `Bearer ${this.loggedUser.token}`;
+      if (loggedUser) this.headers.Authorization = `Bearer ${this.loggedUser.token}`;
     })
   }
 
   getAllAvailableHeroes() {
-    return this.http.get<Hero[]>(`${environment.apiUrl}Heroes/available`, { headers: this.headers }).pipe(
-      catchError(error => {
-        return throwError(() => error);
-      })
-    )
+    return this.http.get<Hero[]>(`${environment.apiUrl}Heroes/available`, { headers: this.headers });
   }
 
   getLoggedUserHeroes() {
-    return this.http.get<Hero[]>(`${environment.apiUrl}Trainers/my-heroes`, { headers: this.headers }).pipe(
-      catchError(error => {
-        return throwError(() => error);
-      })
-    )
+    return this.http.get<Hero[]>(`${environment.apiUrl}Trainers/my-heroes`, { headers: this.headers });
   }
 
   addHeroToLoggedUser(hero: Hero) {
-    return this.http.put<void>(`${environment.apiUrl}Trainers/add-hero/${hero.id}`, {}, { headers: this.headers }).pipe(
-      catchError(error => {
-        return throwError(() => error);
-      })
-    );
+    return this.http.put<void>(`${environment.apiUrl}Trainers/add-hero/${hero.id}`, {}, { headers: this.headers })
   }
 
   deleteHeroFromTrainer(hero: Hero) {
-    return this.http.delete<void>(`${environment.apiUrl}Trainers/${hero.id}`, { headers: this.headers }).pipe(
-      catchError(error => {
-        return throwError(() => error);
-      })
-    );
+    return this.http.delete<void>(`${environment.apiUrl}Trainers/${hero.id}`, { headers: this.headers });
   }
 
   trainHero(hero: Hero) {
-    return this.http.patch<number>(`${environment.apiUrl}Trainers/train/${hero.id}`, {}, { headers: this.headers }).pipe(
-      catchError(error => {
-        return throwError(() => error);
-      })
-    );
+    return this.http.patch<number>(`${environment.apiUrl}Trainers/train/${hero.id}`, {}, { headers: this.headers });
   }
 }

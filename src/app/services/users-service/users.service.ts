@@ -19,11 +19,7 @@ export class UsersService {
   constructor(private http: HttpClient) { }
 
   signup(signupModel: Signup): Observable<string> {
-    return this.http.post<string>(`${environment.apiUrl}UserAccount/signup`, signupModel).pipe(
-      catchError(error => {
-        return throwError(() => error);
-      })
-    );
+    return this.http.post<string>(`${environment.apiUrl}UserAccount/signup`, signupModel);
   }
 
   login(loginModel: Login): Observable<LoggedUser> {
@@ -31,9 +27,6 @@ export class UsersService {
       tap((loggedUser) => {
         localStorage.setItem('loggedUser', JSON.stringify(loggedUser));
         this.loggedUserSub.next(loggedUser);
-      }),
-      catchError(error => {
-        return throwError(() => error);
       })
     );
   }
