@@ -18,13 +18,13 @@
             </div>
        
             <div class="buttons-container">
-                <button (click)="onClickTrainButton(i)" [ngClass]="service.notAllowedSignClass[i]">Train</button>
+                <button (click)="onClickTrainButton(hero, i)" [ngClass]="hitTrainnigLimitSignClass[i]">Train</button>
                 <button (click)="onClickDiscardButton(hero, i)">Discard</button>
             </div>
 
-            <div *ngIf="service.notAllowedModalClass[i]" class="training-forbidden-modal-container">
+            <div *ngIf="hitTrainnigLimitModalClass[i]" class="training-forbidden-modal-container">
                 <div class="training-forbidden-modal">
-                    <i (click)="service.removeNotAllowedModal(i)" class="fa-solid fa-xmark"></i>
+                    <i (click)="removeNotAllowedModal(i)" class="fa-solid fa-xmark"></i>
                     Hero cannot be trained more than 5 times per day
                 </div>
             </div>

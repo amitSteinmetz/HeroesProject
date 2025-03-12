@@ -3,8 +3,8 @@ import { HomePageComponent } from './pages/home-page/home-page.component';
 import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
 import { LoginPageComponent } from './pages/login-page/login-page.component';
 import { SignupPageComponent } from './pages/signup-page/signup-page.component';
-import { AllHeroesComponent } from './pages/all-heroes/all-heroes.component';
-import { MyHeroesComponent } from './pages/my-heroes/my-heroes.component';
+import { AllHeroesComponent } from './pages/heroes/all-heroes/all-heroes.component';
+import { MyHeroesComponent } from './pages/heroes/my-heroes/my-heroes.component';
 import { heroesGuard } from './guards/heroes.guard';
 
 export const routes: Routes = [

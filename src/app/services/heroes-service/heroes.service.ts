@@ -68,19 +68,13 @@ export class HeroesService {
   //     suitColors: ["black", " red", " gray"], startingPower: 19, currentPower: 19, imgPath: "../../../assets/heroes-database-images/ant-man.png"
   //   }
   // ];
-  allUsersChosenHeroes: Map<string, Hero[]> = new Map<string, Hero[]>;
+  // allUsersChosenHeroes: Map<string, Hero[]> = new Map<string, Hero[]>;
 
   // allHeroesSubject: BehaviorSubject<Hero[]> = new BehaviorSubject(this.allHeroes);
   // allHeroesAsObservable: Observable<Hero[]> = this.allHeroesSubject.asObservable();
 
-  allUsersChosenHeroesSubject: BehaviorSubject<Map<string, Hero[]>> = new BehaviorSubject(this.allUsersChosenHeroes);
-  allUsersChosenHeroesAsObservable: Observable<Map<string, Hero[]>> = this.allUsersChosenHeroesSubject.asObservable();
-
-  lastTrainingDate: string[] = [];
-  maxAmountOfTrainingsPerDay = 5;
-  currentAmountOfTrainingToday: number[] = [];
-  notAllowedModalClass = [];
-  notAllowedSignClass = [];
+  // allUsersChosenHeroesSubject: BehaviorSubject<Map<string, Hero[]>> = new BehaviorSubject(this.allUsersChosenHeroes);
+  // allUsersChosenHeroesAsObservable: Observable<Map<string, Hero[]>> = this.allUsersChosenHeroesSubject.asObservable();
 
   loggedUserSubscription: Subscription;
   loggedUser: LoggedUser;
@@ -124,43 +118,23 @@ export class HeroesService {
     );
   }
 
-  retrieveHeroToAllHeroes(hero: Hero, index: number) {
-    // hero.currentPower = hero.startingPower;
+  deleteHeroFromTrainer(hero: Hero) {
+    const headers = { 'Authorization': `Bearer ${this.loggedUser.token}` };
 
-    // this.allHeroes.push(hero);
-    // this.allHeroesSubject.next([...this.allHeroes]);
-
-    // this.allUsersChosenHeroes.get(this.currentLoggedUser).splice(this.allUsersChosenHeroes.get(this.currentLoggedUser).indexOf(hero), 1);
-    // this.allUsersChosenHeroesSubject.next(this.allUsersChosenHeroes);
-
-    // this.notAllowedModalClass.splice(this.notAllowedModalClass.indexOf(hero), 1);
-    // this.notAllowedSignClass.splice(this.notAllowedSignClass.indexOf(hero), 1);
-
-    // this.currentAmountOfTrainingToday[index] = 0;
+    return this.http.delete<void>(`${environment.apiUrl}Trainers/${hero.id}`, { headers }).pipe(
+      catchError(error => {
+        return throwError(() => error);
+      })
+    );
   }
 
-  trainHero(index: number) {
-    // if (this.lastTrainingDate[index] !== environment.todayDate)
-    //   this.currentAmountOfTrainingToday[index] = 0;
+  trainHero(hero: Hero) {
+    const headers = { 'Authorization': `Bearer ${this.loggedUser.token}` };
 
-    // this.currentAmountOfTrainingToday[index]++;
-
-    // if (this.currentAmountOfTrainingToday[index] >= this.maxAmountOfTrainingsPerDay) {
-    //   if (!this.notAllowedSignClass[index]["not-allowed"])
-    //     this.notAllowedSignClass[index]["not-allowed"] = true;
-    //   else
-    //     this.notAllowedModalClass[index] = true;
-
-    //   return;
-    // }
-
-    // this.lastTrainingDate[index] = environment.todayDate;
-    // const hero: Hero = this.allUsersChosenHeroes.get(this.currentLoggedUser).at(index);
-    // hero.currentPower += (Math.random() * (0.1 * hero.currentPower));
-    // hero.currentPower = Math.round(hero.currentPower * 1000) / 1000; // Show only 3 digits after the dot
-  }
-
-  removeNotAllowedModal(index: number) {
-    this.notAllowedModalClass[index] = false;
+    return this.http.patch<number>(`${environment.apiUrl}Trainers/train/${hero.id}`, {}, { headers }).pipe(
+      catchError(error => {
+        return throwError(() => error);
+      })
+    );
   }
 }

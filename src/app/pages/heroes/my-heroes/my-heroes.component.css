@@ -1,3 +1,5 @@
+@import '../heroes.component.css';
+
 button {
     width: 45%
 }
@@ -5,6 +7,10 @@ button {
 .buttons-container {
     display: flex;
     justify-content: space-between;
+}
+
+.hero-card {
+    position: relative;
 }
 
 .hero-card .training-forbidden-modal-container {

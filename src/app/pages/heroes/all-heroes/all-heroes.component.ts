@@ -1,16 +1,16 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { Hero } from '../../models/hero.model';
-import { HeroesService } from '../../services/heroes-service/heroes.service';
+import { Hero } from '../../../models/hero.model';
+import { HeroesService } from '../../../services/heroes-service/heroes.service';
 import { Subscription } from 'rxjs';
 import { CommonModule } from '@angular/common';
-import { UsersService } from '../../services/users-service/users.service';
-import { LoggedUser } from '../../models/loggedUser.model';
+import { UsersService } from '../../../services/users-service/users.service';
+import { LoggedUser } from '../../../models/loggedUser.model';
 
 @Component({
   selector: 'app-all-heroes',
   imports: [CommonModule],
   templateUrl: './all-heroes.component.html',
-  styleUrls: ['../../../styles/heroes.css']
+  styleUrls: ['./all-heroes.component.css']
 })
 export class AllHeroesComponent implements OnInit {
   availableHeroes: Hero[];
