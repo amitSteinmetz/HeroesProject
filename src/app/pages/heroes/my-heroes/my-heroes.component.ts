@@ -79,9 +79,6 @@ export class MyHeroesComponent implements OnInit {
       },
       error: () => { }
     });
-
-    // this.notAllowedModalClass.splice(this.notAllowedModalClass.indexOf(hero), 1);
-    // this.notAllowedSignClass.splice(this.notAllowedSignClass.indexOf(hero), 1);
   }
 
   removeNotAllowedModal(index: number) {
