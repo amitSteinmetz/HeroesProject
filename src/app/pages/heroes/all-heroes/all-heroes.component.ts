@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
 import { Hero } from '../../../models/hero.model';
 import { HeroesService } from '../../../services/heroes-service/heroes.service';
 import { Subscription } from 'rxjs';
@@ -12,7 +12,8 @@ import { LoggedUser } from '../../../models/loggedUser.model';
   templateUrl: './all-heroes.component.html',
   styleUrls: ['./all-heroes.component.css']
 })
-export class AllHeroesComponent implements OnInit {
+export class AllHeroesComponent implements OnInit, OnDestroy {
+  availableHeroesSubscription: Subscription;
   availableHeroes: Hero[];
   showMoreDetails: boolean[] = [];
   heroesIconClass = [];
@@ -26,7 +27,7 @@ export class AllHeroesComponent implements OnInit {
       this.loggedUser = loggedUser;
     })
 
-    this.heroesService.getAllAvailableHeroes().subscribe({
+    this.availableHeroesSubscription = this.heroesService.getAllAvailableHeroes().subscribe({
       next: (heroes) => {
         this.availableHeroes = heroes;
 
@@ -40,6 +41,11 @@ export class AllHeroesComponent implements OnInit {
       },
       error: () => { }
     })
+  }
+
+  ngOnDestroy(): void {
+    this.loggedUserSubscription.unsubscribe();
+    this.availableHeroesSubscription.unsubscribe();
   }
 
   onClickMoreDetailsIcon(index) {
@@ -61,10 +67,10 @@ export class AllHeroesComponent implements OnInit {
             this.showMoreDetails.splice(index, 1);
             this.heroesIconClass.splice(index, 1);
           },
-          error: () => {}
+          error: () => { }
         })
       },
-      error: () => {}
+      error: () => { }
     });
   }
 }

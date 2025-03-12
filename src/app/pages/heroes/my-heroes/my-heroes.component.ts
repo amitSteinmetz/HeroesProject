@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Hero } from '../../../models/hero.model';
 import { Subscription } from 'rxjs';
 import { HeroesService } from '../../../services/heroes-service/heroes.service';
@@ -12,7 +12,8 @@ import { LoggedUser } from '../../../models/loggedUser.model';
   templateUrl: './my-heroes.component.html',
   styleUrls: ['./my-heroes.component.css']
 })
-export class MyHeroesComponent implements OnInit {
+export class MyHeroesComponent implements OnInit, OnDestroy {
+  myHeroesSubscription: Subscription;
   myHeroes: Hero[] = [];
   showMoreDetails: boolean[] = [];
   heroesIconClass = [];
@@ -28,7 +29,7 @@ export class MyHeroesComponent implements OnInit {
       this.loggedUser = loggedUser;
     })
 
-    this.heroesService.getLoggedUserHeroes().subscribe({
+    this.myHeroesSubscription = this.heroesService.getLoggedUserHeroes().subscribe({
       next: (heroes) => {
         this.myHeroes = heroes;
 
@@ -47,6 +48,11 @@ export class MyHeroesComponent implements OnInit {
       },
       error: () => { }
     })
+  }
+
+  ngOnDestroy(): void {
+    this.loggedUserSubscription.unsubscribe();
+    this.myHeroesSubscription.unsubscribe();
   }
 
   onClickMoreDetailsIcon(index) {
